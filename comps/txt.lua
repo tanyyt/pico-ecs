@@ -1,0 +1,1 @@
+Txt=Component{enable=true,col=-1,layer=0--[[,str]]}

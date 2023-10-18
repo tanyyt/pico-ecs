@@ -1,0 +1,1 @@
+Selectable=Component{interactable=true,isODown=false,isXDown=false}

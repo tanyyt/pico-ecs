@@ -1,0 +1,1 @@
+Map=Component{cellX=0,cellY=0,cellWidth=1,cellHeight=1,layers=0,layer=0}
