@@ -19,5 +19,5 @@ function HierachyRemove(ent)
    HierachyRemove(i)
   end
  end
- Remove(ent)
+ RemoveEnt(ent)
 end

@@ -1,4 +1,4 @@
-local id,entities,queries,cbStack=0,{},{},{}
+local id,entities,queries,cbStack,systems,drawSystems=0,{},{},{},{},{}
 local function cuid()
  id+=1
  return id
@@ -87,12 +87,6 @@ function QueryWorld(filter)
  end
  return filtered
 end
-function QueryWorldSingle(filter)
- local filtered=QueryWorld(filter)
- for _,ent in next,filtered do
-  return ent
- end
-end
 function Entity(...)
  local ent=createEntity(...)
  QueueCb(function()
@@ -120,7 +114,7 @@ end
 function SetEntActive(ent,isActive)
  QueueCb(function() ent.isActive=isActive end)
 end
-function Remove(ent)
+function RemoveEnt(ent)
  QueueCb(function()
   ent.isActive,entities[ent.id]=false
   for _,filtered in next,queries do
@@ -134,12 +128,30 @@ function ClearWorld()
    filtered[id]=nil
   end
  end
- entities,cbStack,id={},{},0
+ entities,cbStack,systems,drawSystems,id={},{},{},{},0
  SingletonEntity=createEntity()
  entities[SingletonEntity.id]=SingletonEntity
 end
 function UpdateWorld()
  while #cbStack>0 do
   deli(cbStack,1)()
+ end
+ for sys in all(systems) do
+  sys()
+ end
+end
+function DrawWorld()
+ for sys in all(drawSystems) do
+  sys()
+ end
+end
+function AddSystems(...)
+ for sys in all(pack(...)) do
+  add(systems,sys)
+ end
+end
+function AddDrawSystems(...)
+ for sys in all(pack(...)) do
+  add(drawSystems,sys)
  end
 end
