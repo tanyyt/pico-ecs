@@ -1,1 +1,1 @@
-LOCAL_CHANGE,WORLD_CHANGE,Pos=1,2,Component{x=0,y=0,localX=0,localY=0,changeType=LOCAL_CHANGE,isDirty=false}
+LOCAL_CHANGE,WORLD_CHANGE,Pos=1,2,Component{x=0,y=0,localX=0,localY=0,changeType=LOCAL_CHANGE--[[,isDirty=false]]}

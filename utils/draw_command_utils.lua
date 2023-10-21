@@ -5,15 +5,15 @@ local function insertDrawCommand(dcs,dc)
  end
  add(dcs,dc,insertIndex)
 end
-function SubmitSpr(drawSystemData,id,x,y,layer,width,height,flipX,flipY)
- insertDrawCommand(drawSystemData.dcs,{type=DRAW_SPR,id=id,x=x,y=y,layer=layer,width=width,height=height,flipX=flipX,flipY=flipY})
+function SubmitSpr(ent,id,x,y,layer,width,height,flipX,flipY)
+ insertDrawCommand(ent[DrawSystemData].dcs,{type=DRAW_SPR,id=id,x=x,y=y,layer=layer,width=width,height=height,flipX=flipX,flipY=flipY})
 end
-function SubmitSspr(drawSystemData,x,y,width,height,destX,destY,layer,destWidth,destHeight,flipX,flipY)
- insertDrawCommand(drawSystemData.dcs,{type=DRAW_SSPR,x=x,y=y,width=width,height=height,destX=destX,destY=destY,layer=layer,destWidth=destWidth,destHeight=destHeight,flipX=flipX,flipY=flipY})
+function SubmitSspr(ent,x,y,width,height,destX,destY,layer,destWidth,destHeight,flipX,flipY)
+ insertDrawCommand(ent[DrawSystemData].dcs,{type=DRAW_SSPR,x=x,y=y,width=width,height=height,destX=destX,destY=destY,layer=layer,destWidth=destWidth,destHeight=destHeight,flipX=flipX,flipY=flipY})
 end
-function SubmitPrint(drawSystemData,str,x,y,layer,col)
- insertDrawCommand(drawSystemData.dcs,{type=DRAW_PRINT,str=str,x=x,y=y,layer=layer,col=col})
+function SubmitPrint(ent,str,x,y,layer,col)
+ insertDrawCommand(ent[DrawSystemData].dcs,{type=DRAW_PRINT,str=str,x=x,y=y,layer=layer,col=col})
 end
-function SubmitMap(drawSystemData,cellX,cellY,x,y,cellWidth,cellHeight,layer,layers)
- insertDrawCommand(drawSystemData.dcs,{type=DRAW_MAP,cellX=cellX,cellY=cellY,x=x,y=y,cellWidth=cellWidth,cellHeight=cellHeight,layer=layer,layers=layers})
+function SubmitMap(ent,cellX,cellY,x,y,cellWidth,cellHeight,layer,layers)
+ insertDrawCommand(ent[DrawSystemData].dcs,{type=DRAW_MAP,cellX=cellX,cellY=cellY,x=x,y=y,cellWidth=cellWidth,cellHeight=cellHeight,layer=layer,layers=layers})
 end

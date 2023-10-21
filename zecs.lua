@@ -72,22 +72,25 @@ local function createEntity(...)
  end
  return ent
 end
-SingletonEntity=createEntity()
-entities[SingletonEntity.id]=SingletonEntity
 function QueueCb(cb)
  add(cbStack,cb)
 end
 function QueryWorld(filter)
  local cached=find(queries,filter,tableSame)
- if(cached) return cached
+ if(cached)return cached
  queries[filter]={}
  local filtered=queries[filter]
- for _,ent in next,entities do
-  filtered[ent.id]=every(filter,function(compFactory)return ent[compFactory] end) and ent
+ filtered.first=function()
+  for _,ent in next,filtered do
+   return ent
+  end
+ end
+ for id,ent in next,entities do
+  filtered[id]=every(filter,function(compFactory)return ent[compFactory] end) and ent
  end
  return filtered
 end
-function Entity(...)
+function EntityDelay(...)
  local ent=createEntity(...)
  QueueCb(function()
   entities[ent.id]=ent
@@ -111,10 +114,10 @@ function System(filter,cb)
   end
  end
 end
-function SetEntActive(ent,isActive)
+function SetActiveDelay(ent,isActive)
  QueueCb(function() ent.isActive=isActive end)
 end
-function RemoveEnt(ent)
+function RemoveDelay(ent)
  QueueCb(function()
   ent.isActive,entities[ent.id]=false
   for _,filtered in next,queries do
@@ -129,8 +132,6 @@ function ClearWorld()
   end
  end
  entities,cbStack,systems,drawSystems,id={},{},{},{},0
- SingletonEntity=createEntity()
- entities[SingletonEntity.id]=SingletonEntity
 end
 function UpdateWorld()
  while #cbStack>0 do

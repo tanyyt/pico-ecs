@@ -1,7 +1,8 @@
 MapSystem=System({Map,Pos},function(ent)
  local map,pos=ent[Map],ent[Pos]
+ if(not map.enable)return
  SubmitMap(
-  SingletonEntity[DrawSystemData],
+  QueryWorld{DrawSystemData}.first,
   map.cellX,
   map.cellY,
   pos.x,
@@ -9,6 +10,5 @@ MapSystem=System({Map,Pos},function(ent)
   map.cellWidth,
   map.cellHeight,
   map.layer,
-  map.layers
- )
+  map.layers)
 end)

@@ -1,1 +1,1 @@
-Sspr=Component{enable=true,x=0,y=0,width=0,height=0,destWidth=-1,destHeight=-1,flipX=false,flipY=false,layer=0}
+Sspr=Component{enable=true,x=0,y=0,width=0,height=0,destWidth=-1,destHeight=-1--[[,flipX=false,flipY=false]],layer=0}
