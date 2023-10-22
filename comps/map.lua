@@ -1,1 +1,1 @@
-Map=Component{enable=true,cellX=0,cellY=0,cellWidth=1,cellHeight=1,layers=0,layer=0}
+Map=Component{enable=true,layer=0,layers=0--[[,cellX=0,cellY=0,cellWidth=1,cellHeight=1]]}

@@ -1,11 +1,7 @@
 TxtSystem=System({Txt,Pos},function(ent)
  local txt,pos=ent[Txt],ent[Pos]
  if(not txt.enable)return
- SubmitPrint(
-  QueryWorld{DrawSystemData}.first,
-  txt.str,
-  pos.x,
-  pos.y,
-  txt.layer,
-  txt.col)
+ SubmitDraw(QueryWorldSingle{DrawSystemData},function()
+  print(txt.str,pos.x,pos.y,txt.col)
+ end,txt.layer)
 end)

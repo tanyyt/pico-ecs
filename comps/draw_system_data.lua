@@ -1,1 +1,1 @@
-DRAW_SPR,DRAW_SSPR,DRAW_PRINT,DRAW_MAP,DrawSystemData=1,2,3,4,Component{--[[dcs]]}
+DrawSystemData=Component{--[[dcs]]}

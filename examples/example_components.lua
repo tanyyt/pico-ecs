@@ -1,0 +1,1 @@
+DrawRectComponent=Component{layer=0}

@@ -80,15 +80,16 @@ function QueryWorld(filter)
  if(cached)return cached
  queries[filter]={}
  local filtered=queries[filter]
- filtered.first=function()
-  for _,ent in next,filtered do
-   return ent
-  end
- end
  for id,ent in next,entities do
   filtered[id]=every(filter,function(compFactory)return ent[compFactory] end) and ent
  end
  return filtered
+end
+function QueryWorldSingle(filter)
+ local filtered=QueryWorld(filter)
+ for _,ent in next,filtered do
+  return ent
+ end
 end
 function EntityDelay(...)
  local ent=createEntity(...)

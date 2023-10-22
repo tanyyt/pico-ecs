@@ -1,11 +1,10 @@
 function SetParentDelay(parentEntity,childEntity)
  QueueCb(function()
-  local parentHierachy,childHierachy=parentEntity[Hierachy],childEntity[Hierachy]
+  local childHierachy=childEntity[Hierachy]
   local originParent=childHierachy.parent
-  if originParent then
-   del(originParent[Hierachy].children,childEntity)
-  end
-  add(parentHierachy.children,childEntity)
+  if(originParent)del(originParent[Hierachy].children,childEntity)
+  childHierachy.parent=parentEntity
+  if(parentEntity)add(parentEntity[Hierachy].children,childEntity)
  end)
 end
 function SetHierachyActive(ent,isActive)
@@ -15,5 +14,5 @@ function HierachyRemoveDelay(ent)
  for i in all(ent[Hierachy].children) do
   HierachyRemoveDelay(i)
  end
- RemoveEntDelay(ent)
+ RemoveDelay(ent)
 end

@@ -7,9 +7,9 @@ Because of pico-8's limitation, this library tries to use as least tokens and ch
 # Quick Start
 First, you should import the lua files you need into your `.p8` file. And there are four kinds of files in zecs:
 - Framework core (`zecs.lua`).
-- Components, only contains data (put into `comps` folder).
-- Utilities, contains helper functions which operate components, and should be used between systems (put into `utils` folder).
-- Systems, only contains logic (put into `systems` folder)
+- Components, only contain data (put into `comps` folder).
+- Utilities, contain helper functions which operate components, and should be used between systems (put into `utils` folder).
+- Systems, only contain logic (put into `systems` folder).
 We need to include them as the sequence metioned below.
 ```lua
 -- include zecs.lua at first
@@ -29,7 +29,7 @@ We need to include them as the sequence metioned below.
 ```
 And now we have been prepared for Zecs! Let's move next to api usage.
 ## World
-World contains all entities of Zecs, and there is only one world in Zecs.
+World contains all entities of Zecs, and there is only one World in Zecs.
 So before we start or after game scene changed or somethine like that, always remember to clear World.
 ```lua
 -- clear World, clear all entities and systems
@@ -48,9 +48,9 @@ function _draw()
  DrawWorld()
 end
 ```
-We could Queue a callback until next UpdateWorld().
+We could queue a callback until next UpdateWorld().
 ```lua
--- Queue a callback
+-- queue a callback
 QueueCb(function()
  print("Queue Callback")
 end)
@@ -78,8 +78,15 @@ local filtered=QueryWorld{Character,Pos}
 for id,ent2 in next,filtered do
  -- ent2 is the entity we need
 end
--- or only get the first
-local ent3=filtered.first
+-- or only get the single one entity
+local ent3=QueryWorldSingle{Character,Pos}
+```
+We could add/remove component after entity created.
+```lua
+-- add component, it would be delayed until next UpdateWorld()
+ent+=Pos{localX=1,locaY=-2}
+-- remove component, it would be delayed until next UpdateWorld()
+ent-=Pos
 ```
 ## System
 System contains the actual logic we execute. We could define a system that executes only on specific entities.
@@ -123,7 +130,7 @@ Component that represents entities' tree structure.
 -- isActiveSelf: parent's active state would influence children's active state
 -- parent: parent entity
 -- childre: a table of children entity
-Hierachy=Component{--[[parent,children,]]isActiveSelf=true}
+Hierachy{children={}--[[,parent,isActiveSelf=true]]}
 ```
 Related Systems.
 ```lua
@@ -149,7 +156,7 @@ Compnent that represents entity's position, needs to work with Hierachy.
 ```lua
 -- x,y world position
 -- x,y local position in hierachy
-Pos=Component{x=0,y=0,localX=0,localY=0}
+Pos{--[[x=0,y=0,]]localX=0,localY=0}
 ```
 Related Systems.
 ```lua
@@ -169,7 +176,7 @@ Components, Systems and Utilities used for draw.
 Component that contains draw call data.
 ```lua
 -- contains all draw call
-DrawSystemData=Component{--[[dcs]]}
+DrawSystemData{dcs={}}
 ```
 System to draw all the things.
 ```lua
@@ -184,6 +191,13 @@ EntityDelay(DrawSystemData{dcs={}})
 -- add DrawSystem to World
 AddDrawSystems(DrawSystem)
 ```
+If we want to insert some draw call into specific layer, we could use SubmitOther() function.
+```lua
+-- draw a rect in layer 20
+SubmitDraw(QueryWorldSingle{DrawSystemData},function()
+ rect(0,10,20,20)
+end,20)
+```
 ### Spr
 Component that draws a spr. It needs to work with Pos.
 ```lua
@@ -192,7 +206,7 @@ Component that draws a spr. It needs to work with Pos.
 -- width/height: scale the sprite, 1 == 8 pixels
 -- flipX/Y: flip the draw
 -- layer: the layer of this draw, more greater more later
-Spr=Component{enable=true,id=0,width=1,height=1--[[,flipX=false,flipY=false]],layer=0}
+Spr{id=0--[[,width=1,height=1,enable=true,flipX=false,flipY=false,layer=0]]}
 ```
 System that submits spr drawcall.
 ```lua
@@ -206,7 +220,7 @@ Component that draws a sspr. It needs to work with Pos.
 -- width/height: the width/height of sspr in SpriteEditor, 1 == 1 pixel
 -- destWidth/destHeight: the width/height when draw, 1 == 1 pixel. -1 means it would keep sync with width/height
 -- layer: the layer of this draw, more greater more later
-Sspr=Component{enable=true,x=0,y=0,width=0,height=0,destWidth=-1,destHeight=-1--[[,flipX=false,flipY=false]],layer=0}
+Sspr{x=0,y=0,width=10,height=10--[[enable=true,destWidth=-1,destHeight=-1,flipX=false,flipY=false,layer=0]]}
 ```
 System that submits sspr drawcall.
 ```lua
@@ -220,7 +234,7 @@ Component that draws a map. It needs to work with Pos.
 -- cellWidth/Height: the width/height of the map
 -- layers:  a bitfield. When given, only sprites with matching sprite flags are drawn. For example, when LAYERS is 0x5, only sprites with flag 0 and 2 are drawn
 -- layer: the layer of this draw, more greater more later
-Map=Component{enable=true,cellX=0,cellY=0,cellWidth=1,cellHeight=1,layers=0,layer=0}
+Map{cellX=0,cellY=0,cellWidth=10,cellHeight=10--[[,layers=0,enable=true,layer=0]]}
 ```
 System that submits map drawcall.
 ```lua
@@ -233,7 +247,7 @@ Component that draws print a text. It needs to work with Pos.
 -- col: color of the print, -1 means keep sync with last print
 -- layer: the layer of this draw, more greater more later
 -- str: text content of this print
-Txt=Component{enable=true,col=-1,layer=0--[[,str]]}
+Txt{str="test"--[[,enable=true,col=-1,layer=0]]}
 ```
 System that submits print drawcall.
 ```lua

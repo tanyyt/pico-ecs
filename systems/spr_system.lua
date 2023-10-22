@@ -1,14 +1,7 @@
 SprSystem=System({Spr,Pos}, function(ent)
- local spr,pos=ent[Spr],ent[Pos]
- if(not spr.enable)return
- SubmitSpr(
-  QueryWorld{DrawSystemData}.first,
-  spr.id,
-  pos.x,
-  pos.y,
-  spr.layer,
-  spr.width,
-  spr.height,
-  spr.flipX,
-  spr.flipY)
+ local sprComp,pos=ent[Spr],ent[Pos]
+ if(not sprComp.enable)return
+ SubmitDraw(QueryWorldSingle{DrawSystemData},function()
+  spr(sprComp.id,pos.x,pos.y,sprComp.width,sprComp.height,sprComp.flipX,sprComp.flipY)
+ end,sprComp.layer)
 end)

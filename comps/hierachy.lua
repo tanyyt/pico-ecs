@@ -1,1 +1,1 @@
-Hierachy=Component{--[[parent,children,isActiveHierachy,isDirty,]]isActiveSelf=true}
+Hierachy=Component{isActiveSelf=true--[[,parent,children,isActiveHierachy,isDirty]]}

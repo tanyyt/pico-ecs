@@ -1,1 +1,1 @@
-Spr=Component{enable=true,id=0,width=1,height=1--[[,flipX=false,flipY=false]],layer=0}
+Spr=Component{enable=true,layer=0,width=1,height=1--[[,id=0,flipX=false,flipY=false]]}

@@ -1,7 +1,7 @@
 local function syncActive(hierachy)
  if(not hierachy.isDirty)return
  local parentHierachy=hierachy.parent and hierachy.parent[Hierachy]
- syncActive(parentHierachy)
+ if(parentHierachy)syncActive(parentHierachy)
  hierachy.isActiveHierachy,hierachy.isDirty=hierachy.isActiveSelf and (not parentHierachy or parentHierachy.isActiveHierachy)
 end
 function HierachyActiveSystem()
