@@ -142,8 +142,7 @@ Related Utilities.
 -- set an entity's parent
 -- parent: parent entity
 -- child: child entity
--- this operation would be delayed until next UpdateWorld()
-SetParentDelay(parent,child)
+SetParent(parent,child)
 
 -- different from SetActiveDelay(), this would influence all children entities, this operation would takes influence until next HierachyActiveSystem update
 SetHierachyActive(ent)
