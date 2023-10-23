@@ -6,12 +6,12 @@ end)
 SprMoveSystem=System({Spr,Pos},function(ent)
  local pos=ent[Pos]
  SetLocalPos(ent,pos.localX+flr(rnd(3))-1,pos.localY+flr(rnd(3))-1)
- if(time()>5)HierachyRemoveDelay(ent)
+ if(time()>5)HierarchyRemoveDelay(ent)
 end)
 
 ActiveControlSystem=System({Map},function(ent)
  local sprEnt=QueryWorldSingle{Spr}
- if(sprEnt)SetHierachyActive(sprEnt,rnd(2)>1)
+ if(sprEnt)SetHierarchyActive(sprEnt,rnd(2)>1)
 end)
 
 ComponentControlSystem=System({Txt},function(ent)

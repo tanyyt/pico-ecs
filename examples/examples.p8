@@ -5,7 +5,7 @@ __lua__
 #include ../zecs.lua
 -- components
 #include ../comps/draw_system_data.lua
-#include ../comps/hierachy.lua
+#include ../comps/hierarchy.lua
 #include ../comps/map.lua
 #include ../comps/pos.lua
 #include ../comps/spr.lua
@@ -14,12 +14,12 @@ __lua__
 #include example_components.lua
 -- utilities
 #include ../utils/draw_command_utils.lua
-#include ../utils/hierachy_pos_utils.lua
-#include ../utils/hierachy_utils.lua
+#include ../utils/hierarchy_pos_utils.lua
+#include ../utils/hierarchy_utils.lua
 -- systems
 #include ../systems/draw_system.lua
-#include ../systems/hierachy_active_system.lua
-#include ../systems/hierachy_pos_system.lua
+#include ../systems/hierarchy_active_system.lua
+#include ../systems/hierarchy_pos_system.lua
 #include ../systems/map_system.lua
 #include ../systems/spr_system.lua
 #include ../systems/sspr_system.lua

@@ -3,7 +3,7 @@ An ECS framework for pico-8, based on pecs:https://github.com/jesstelford/pecs.
 Because of pico-8's limitation, this library tries to use as least tokens and chars as possible, and it provides:
 - ECS framework for pico-8.
 - delay function to handle sequence problems in ECS.
-- Preset components like hierachy, pos, spr and etc to cover the common usage.
+- Preset components like hierarchy, pos, spr and etc to cover the common usage.
 # Quick Start
 First, you should import the lua files you need into your `.p8` file. And there are four kinds of files in zecs:
 - Framework core (`zecs.lua`).
@@ -20,11 +20,11 @@ We need to include them as the sequence metioned below.
 -- other components ...
 
 -- then include utilities
-#include utils/hierachy_pos_utils.lua
+#include utils/hierarchy_pos_utils.lua
 -- other utilities ...
 
 -- then include systems
-#include systems/hierachy_pos_system.lua
+#include systems/hierarchy_pos_system.lua
 -- other systems ...
 ```
 And now we have been prepared for Zecs! Let's move next to api usage.
@@ -124,18 +124,18 @@ end
 Zecs provides preset Components, Systems and Utilities to help developers code their game quickly.
 ## Logic
 Components, Systems and Utilities used for logic.
-### Hierachy
+### Hierarchy
 Component that represents entities' tree structure.
 ```lua
 -- isActiveSelf: parent's active state would influence children's active state
 -- parent: parent entity
 -- childre: a table of children entity
-Hierachy{children={}--[[,parent,isActiveSelf=true]]}
+Hierarchy{children={}--[[,parent,isActiveSelf=true]]}
 ```
 Related Systems.
 ```lua
--- LogicSystem that makes active state related to Hierachy
-AddSystems(HierachyActiveSystem)
+-- LogicSystem that makes active state related to Hierarchy
+AddSystems(HierarchyActiveSystem)
 ```
 Related Utilities.
 ```lua
@@ -144,23 +144,23 @@ Related Utilities.
 -- child: child entity
 SetParent(parent,child)
 
--- different from SetActiveDelay(), this would influence all children entities, this operation would takes influence until next HierachyActiveSystem update
-SetHierachyActive(ent)
+-- different from SetActiveDelay(), this would influence all children entities, this operation would takes influence until next HierarchyActiveSystem update
+SetHierarchyActive(ent)
 
 -- different from RemoveDelay(), this would remove all childrent entites as well, this operation would be delayed until next UpdateWorld()
-HierachyRemoveDelay(ent)
+HierarchyRemoveDelay(ent)
 ```
 ### Pos
-Compnent that represents entity's position, needs to work with Hierachy.
+Compnent that represents entity's position, needs to work with Hierarchy.
 ```lua
 -- x,y world position
--- x,y local position in hierachy
+-- x,y local position in hierarchy
 Pos{--[[x=0,y=0,]]localX=0,localY=0}
 ```
 Related Systems.
 ```lua
--- System to sync world position with hierachy
-AddSystems(HierachyPosSystem)
+-- System to sync world position with hierarchy
+AddSystems(HierarchyPosSystem)
 ```
 Related Utilities.
 ```lua

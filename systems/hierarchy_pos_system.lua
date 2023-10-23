@@ -1,9 +1,9 @@
-local function calculatePos(hierachy,pos)
+local function calculatePos(hierarchy,pos)
  if(not pos.isDirty)return
  local parentX,parentY=0,0
- if(hierachy.parent)then
-  local parentPos,parentHierachy=hierachy.parent[Pos],hierachy.parent[Hierachy]
-  calculatePos(parentHierachy,parentPos)
+ if(hierarchy.parent)then
+  local parentPos,parentHierarchy=hierarchy.parent[Pos],hierarchy.parent[Hierarchy]
+  calculatePos(parentHierarchy,parentPos)
   parentX,parentY=parentPos.x,parentPos.y
  end
  if(WORLD_CHANGE==pos.changeType) then
@@ -13,11 +13,11 @@ local function calculatePos(hierachy,pos)
  end
  pos.changeType,pos.isDirty=LOCAL_CHANGE
 end
-local update=System({Hierachy,Pos},function(ent)
- calculatePos(ent[Hierachy],ent[Pos])
+local update=System({Hierarchy,Pos},function(ent)
+ calculatePos(ent[Hierarchy],ent[Pos])
 end)
-function HierachyPosSystem()
- local filtered=QueryWorld{Hierachy,Pos}
+function HierarchyPosSystem()
+ local filtered=QueryWorld{Hierarchy,Pos}
  for _,ent in next,filtered do
   ent[Pos].isDirty=true
  end
