@@ -91,7 +91,7 @@ function QueryWorldSingle(filter)
   return ent
  end
 end
-function EntityDelay(...)
+function Entity(...)
  local ent=createEntity(...)
  QueueCb(function()
   entities[ent.id]=ent

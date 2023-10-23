@@ -64,8 +64,8 @@ Character=Component{hp=0,maxHp=0}
 ## Entity
 Entity holds multiple components, but one entity could only hold one component of each type (for example an entity could not have two Character component). A world could have multiple entities.
 ```lua
--- create an entity that holds Character component and Pos component
-local ent=EntityDelay(Pos{localX=4,localY=-14},Character{hp=3,maxHp=3})
+-- create an entity that holds Character component and Pos component, this entity would be added in World until next UpdateWorld()
+local ent=Entity(Pos{localX=4,localY=-14},Character{hp=3,maxHp=3})
 
 -- change the active state of entity, deactive entities would not be included in system's logic, this operation would be delayed until next UpdateWorld() execution
 SetActiveDelay(ent)
@@ -186,7 +186,7 @@ To make draw system work, we need to have an Entity that holds DrawSystemData an
 **Warning: There should be only one DrawSystemData in World!**
 ```lua
 -- create an entity with DrawSystemData
-EntityDelay(DrawSystemData{dcs={}})
+Entity(DrawSystemData{dcs={}})
 -- add DrawSystem to World
 AddDrawSystems(DrawSystem)
 ```
