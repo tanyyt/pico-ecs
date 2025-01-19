@@ -169,6 +169,47 @@ SetPos(ent,x,y)
 -- set local position
 SetLocalPos(ent,localX,localY)
 ```
+### Anim
+Component that can anim other component.
+```lua
+-- isPlaying: if the anim is playing
+-- states: data that records animed component
+-- frames: frames that present each state
+-- isLoop: is loop anim
+-- frame: record now is in which frame
+Anim{isPlaying=true,states={},frames={},isLoop=false--[[,frame=0]]}
+
+-- Spr anim example, anim spr1, spr2, spr3 in frame 0, 4, 9
+Anim{states={Spr{id=1}, Spr{id=2}, Spr{id=3}}, frames={0, 4, 9}}
+```
+System that processes anim.
+```lua
+-- System thats anim spr component
+AddSystems(SprAnimSystem)
+```
+Related Utilities.
+```lua
+-- Stop anim and back to first frame
+Stop(ent)
+-- Replay anim from first frame
+Replay(ent)
+```
+## Physics
+### Ab
+Component that presents a rectangle in phsics world.
+```lua
+-- enable: disable it, it would not intersects with any other
+-- x0: x of leftTop point
+-- y0: y of leftTop point
+-- x1: x of rightDown point
+-- y1: y of rightDown point
+-- intersects: The result of intersects, they would be cleared each frame
+Ab{x0=0,y0=0,x1=0,y1=0,intersects={}--[[,enable=true]]}
+```
+System that calculate ab intersects.
+```lua
+AddSystems(AbSystem)
+```
 ## Draw
 Components, Systems and Utilities used for draw.
 ### DrawSystem
@@ -251,4 +292,80 @@ Txt{str="test"--[[,enable=true,col=-1,layer=0]]}
 System that submits print drawcall.
 ```lua
 AddDrawSystems(TxtSystem)
+```
+### Circ
+Componet that draws a Circle. It needs to work with Pos.
+```lua
+-- enable： disable it, it would not draw anything
+-- col: color of the print, -1 means keep sync with last print
+-- layer: the layer of this draw, more greater more later
+-- x: x pos of circle
+-- y: y pos of circle
+-- r: radius of circle
+-- ifFill: is a fill circle
+Circ{x=0,y=0,r=0,isFill=false--[[,col=-1,layer=0,enable=true]]}
+```
+System that submits Circle drawcall.
+```lua
+AddDrawSystems(CircSystem)
+```
+### Line
+Component that draws a Line. It needs to work with Pos.
+```lua
+-- enable： disable it, it would not draw anything
+-- col: color of the print, -1 means keep sync with last print
+-- layer: the layer of this draw, more greater more later
+-- x0: x of start pos
+-- y0: y of start pos
+-- x1: x of end pos (if nil, it would use last drawn line x1)
+-- y1: y of end pos (if nil, it would use last drawn line y1)
+Line{x0=0,y0=0,x1=nil,y1=nil--[[,enable=true,col=-1,layer=0]]}
+```
+System that submits Line drawcall.
+```lua
+AddDrawSystems(LineSystem)
+```
+### Oval
+Component that draws a Oval. It needs to work with Pos.
+```lua
+-- enable： disable it, it would not draw anything
+-- col: color of the print, -1 means keep sync with last print
+-- layer: the layer of this draw, more greater more later
+-- x0: x of leftTop point
+-- y0: y of leftTop point
+-- x1: x of rightDown point
+-- y1: y of rightDown point
+-- isFill: isFill oval
+Oval{x0=0,y0=0,x1=0,y1=0,isFill=false--[[,enable=true,col=-1,layer=0]]}
+```
+System that submints Oval drawcall.
+```lua
+AddDrawSystems(OvalSystem)
+```
+### Rect
+Component that draws a Rect. It needs to work with Pos.
+```lua
+-- enable： disable it, it would not draw anything
+-- col: color of the print, -1 means keep sync with last print
+-- layer: the layer of this draw, more greater more later
+-- x0: x of leftTop point
+-- y0: y of leftTop point
+-- x1: x of rightDown point
+-- y1: y of rightDown point
+-- isFill: isFill rect
+Rect{x0=0,y0=0,x1=0,y1=0,isFill=false--[[,enable=true,col=-1,layer=0]]}
+```
+System that submits Rect drawcall.
+```lua
+AddDrawSystems(RectSystem)
+```
+### Camera
+Component that offset every drawing element. It needs to work with Pos.
+```lua
+-- enable: disable it, it would make camera back to origin point
+Camera{enable=true}
+```
+System that control camera.
+```lua
+AddDrawSystems(CameraSystem)
 ```
