@@ -1,0 +1,1 @@
+Camera=Component{enable=true}

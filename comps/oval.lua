@@ -1,0 +1,1 @@
+Oval=Component{enable=true,col=-1,layer=0--[[,x0=0,y0=0,x1=0,y1=0,isFill=false]]}

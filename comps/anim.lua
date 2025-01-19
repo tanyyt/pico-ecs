@@ -1,0 +1,1 @@
+Anim=Component{isPlaying=true,states={},frames={},frame=0--[[,isLoop=false]]}

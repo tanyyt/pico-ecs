@@ -90,6 +90,7 @@ function QueryWorldSingle(filter)
  for _,ent in next,filtered do
   return ent
  end
+ return
 end
 function Entity(...)
  local ent=createEntity(...)
